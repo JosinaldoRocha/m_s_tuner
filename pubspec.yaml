@@ -36,8 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
   dropdown_button2: ^2.3.9
-  bloc: ^8.1.2
   flutter_riverpod: ^2.4.1
+  freezed: ^2.4.3
+  permission_handler: ^11.0.0
+  just_audio: ^0.9.35
+  flutter_sound: ^9.2.13
 
 dev_dependencies:
   flutter_test:

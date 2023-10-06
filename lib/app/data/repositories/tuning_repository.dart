@@ -1,61 +1,187 @@
-import 'package:m_s_afinador/app/data/models/instrument_model.dart';
+import 'package:m_s_afinador/app/data/models/note_model.dart';
 import 'package:m_s_afinador/app/data/models/tuning_model.dart';
 import 'package:m_s_afinador/app/data/models/tuning_types_model.dart';
+import '../models/instrument_model.dart';
 
 class TuningRepository {
-  List<TuningModel> items = [];
+  final _tuningViolao = [
+    // TuningTypesModel(
+    //   id: 'tuningOpenD',
+    //   title: 'Open D',
+    //   tunings: [],
+    // ),
+    // TuningTypesModel(
+    //   id: 'tuningOpenC',
+    //   title: 'Open C',
+    //   tunings: [],
+    // ),
+    // TuningTypesModel(
+    //   id: 'tuningOpenB',
+    //   title: 'Open B',
+    //   tunings: [],
+    // ),
+    TuningTypesModel(
+      id: 'tuningOpenA',
+      title: 'Open A',
+      tuning: TuningModel(
+        id: 'openAViolao',
+        instrumentId: 'violao',
+        tuningTypeId: 'tuningOpenA',
+        notes: [
+          NoteModel(id: 'mizao', title: 'E'),
+          NoteModel(id: 'la', title: 'A'),
+          NoteModel(id: 'mi', title: 'E'),
+          NoteModel(id: 'la', title: 'A'),
+          NoteModel(id: 'doSustenido', title: 'C#'),
+          NoteModel(id: 'mi', title: 'E'),
+        ],
+      ),
+    ),
+    TuningTypesModel(
+      id: 'tuningStandard',
+      title: 'Standard',
+      tuning: TuningModel(
+        id: 'standartViolao',
+        instrumentId: 'violao',
+        tuningTypeId: 'tuningStandard',
+        notes: [
+          NoteModel(id: 'mizao', title: 'E'),
+          NoteModel(id: 'la', title: 'A'),
+          NoteModel(id: 're', title: 'D'),
+          NoteModel(id: 'sol', title: 'G'),
+          NoteModel(id: 'si', title: 'B'),
+          NoteModel(id: 'mi', title: 'E'),
+        ],
+      ),
+    ),
+    TuningTypesModel(
+      id: 'tuningDropD',
+      title: 'Drop D',
+      tuning: TuningModel(
+        id: 'standartViolao',
+        instrumentId: 'violao',
+        tuningTypeId: 'tuningStandard',
+        notes: [
+          NoteModel(id: 're', title: 'D'),
+          NoteModel(id: 'la', title: 'A'),
+          NoteModel(id: 're', title: 'D'),
+          NoteModel(id: 'sol', title: 'G'),
+          NoteModel(id: 'si', title: 'B'),
+          NoteModel(id: 'mi', title: 'E'),
+        ],
+      ),
+    ),
+    // TuningTypesModel(
+    //   id: 'tuningDropC',
+    //   title: 'Drop C',
+    //   tunings: [],
+    // ),
+    // TuningTypesModel(
+    //   id: 'tuningDropB',
+    //   title: 'Drop B',
+    //   tunings: [],
+    // ),
+    // TuningTypesModel(
+    //   id: 'tuningDropA',
+    //   title: 'Drop A',
+    //   tunings: [],
+    // ),
+  ];
 
-  Future<List<TuningModel>> getAllTunings(String? chord) async {
-    await Future.delayed(const Duration(seconds: 2));
+  Future<TuningModel> getTunings(String? instrumentId) async {
+    await Future.delayed(const Duration(milliseconds: 100));
 
-    final standart = [
-      TuningModel(id: '01', title: 'E'),
-      TuningModel(id: '02', title: 'A'),
-      TuningModel(id: '03', title: 'D'),
-      TuningModel(id: '04', title: 'G'),
-      TuningModel(id: '05', title: 'B'),
-      TuningModel(id: '06', title: 'E'),
+    List<TuningModel> tuning = [
+      // TuningModel(
+      //   id: 'standardViolaoTuning',
+      //   instrumentId: 'violao',
+      //   tuningTypeId: 'standard',
+      //   //tuning: ['E', 'A', 'D', 'G', 'B', 'E'],
+      // ),
+      // TuningModel(
+      //   id: 'standardguitarraTuning',
+      //   instrumentId: 'guitarra',
+      //   tuningTypeId: 'standard',
+      //   // tuning: ['E', 'E', 'D', 'G', 'B', 'E'],
+      // ),
+      // TuningModel(
+      //   id: 'standardContrabaixoTuning',
+      //   instrumentId: 'contrabaixo',
+      //   tuningTypeId: 'standard',
+      //   // tuning: ['E', 'A', 'D', 'G'],
+      // ),
     ];
-    final dropD = [
-      TuningModel(id: '01', title: 'D'),
-      TuningModel(id: '02', title: 'A'),
-      TuningModel(id: '03', title: 'D'),
-      TuningModel(id: '04', title: 'G'),
-      TuningModel(id: '05', title: 'B'),
-      TuningModel(id: '06', title: 'E'),
-    ];
-
-    if (chord != null) {
-      if (chord == 'dropD') {
-        items = dropD;
-      } else {
-        items = standart;
-      }
+    if (instrumentId != null) {
+      return tuning
+          .firstWhere((element) => element.instrumentId == instrumentId);
+    } else {
+      return tuning.firstWhere((element) => element.instrumentId == 'violao');
     }
-    return items;
   }
 
   Future<List<TuningTypesModel>> tuningTypes() async {
-    await Future.delayed(const Duration(seconds: 1));
-
     return [
-      TuningTypesModel(id: 'tuningOpenD', title: 'Open D'),
-      TuningTypesModel(id: 'tuningOpenC', title: 'Open C'),
-      TuningTypesModel(id: 'tuningOpenB', title: 'Open B'),
-      TuningTypesModel(id: 'tuningOpenA', title: 'Open A'),
-      TuningTypesModel(id: 'tuningStandard', title: 'Standard'),
-      TuningTypesModel(id: 'tuningDropD', title: 'Drop D'),
-      TuningTypesModel(id: 'tuningDropC', title: 'Drop C'),
-      TuningTypesModel(id: 'tuningDropB', title: 'Drop B'),
-      TuningTypesModel(id: 'tuningDropA', title: 'Drop A'),
+      // TuningTypesModel(id: 'tuningOpenD', title: 'Open D'),
+      // TuningTypesModel(id: 'tuningOpenC', title: 'Open C'),
+      // TuningTypesModel(id: 'tuningOpenB', title: 'Open B'),
+      // TuningTypesModel(id: 'tuningOpenA', title: 'Open A'),
+      // TuningTypesModel(id: 'tuningStandard', title: 'Standard'),
+      // TuningTypesModel(id: 'tuningDropD', title: 'Drop D'),
+      // TuningTypesModel(id: 'tuningDropC', title: 'Drop C'),
+      // TuningTypesModel(id: 'tuningDropB', title: 'Drop B'),
+      // TuningTypesModel(id: 'tuningDropA', title: 'Drop A'),
     ];
   }
 
-  Future<List<InstrumentModel>> getAllInstruments() async {
+  Future<List<InstrumentModel>> getInstruments() async {
+    await Future.delayed(const Duration(seconds: 1));
     return [
-      InstrumentModel(id: 'instrument01', title: 'Guitarra'),
-      InstrumentModel(id: 'instrument02', title: 'Violão'),
-      InstrumentModel(id: 'instrument03', title: 'Contrabaixo'),
+      InstrumentModel(
+        id: 'guitarra',
+        title: 'Guitarra',
+        tuningTypes: _tuningViolao,
+      ),
+      InstrumentModel(
+        id: 'violao',
+        title: 'Violão',
+        tuningTypes: _tuningViolao,
+      ),
+      InstrumentModel(
+        id: 'contrabaixo',
+        title: 'Contrabaixo',
+        tuningTypes: [
+          TuningTypesModel(
+            id: 'tuningStandard',
+            title: 'Standard',
+            tuning: TuningModel(
+              id: 'standartContrabaixo',
+              instrumentId: 'contrabaixo',
+              tuningTypeId: 'tuningStandard',
+              notes: [
+                NoteModel(id: 'mizao', title: 'E'),
+                NoteModel(id: 'la', title: 'A'),
+                NoteModel(id: 're', title: 'D'),
+                NoteModel(id: 'sol', title: 'G'),
+              ],
+            ),
+          ),
+          TuningTypesModel(
+            id: 'tuningOpenA',
+            title: 'Open A',
+            tuning: TuningModel(
+              id: 'openAContrabaixo',
+              instrumentId: 'contrabaixo',
+              tuningTypeId: 'tuningOpenA',
+              notes: [
+                NoteModel(id: 'la', title: 'A'),
+                NoteModel(id: 'mi', title: 'E'),
+                NoteModel(id: 're', title: 'D'),
+                NoteModel(id: 'sol', title: 'G'),
+              ],
+            ),
+          ),
+        ],
+      ),
     ];
   }
 }

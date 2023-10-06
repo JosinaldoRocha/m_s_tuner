@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:m_s_afinador/app/presentation/tune/providers/tune_provider.dart';
-import 'package:m_s_afinador/app/presentation/tune/states/list_instruments/list_instruments_state.dart';
 import 'package:m_s_afinador/app/widgets/dropdown_button_widget.dart';
+import '../../../../data/models/instrument_model.dart';
+import '../../../../widgets/icon_widget.dart';
 
 class SelectInstrumentWidget extends ConsumerStatefulWidget {
-  const SelectInstrumentWidget({super.key});
+  const SelectInstrumentWidget({
+    super.key,
+    required this.onTap,
+    required this.instrument,
+    required this.instrumentList,
+  });
+  final Function(InstrumentModel)? onTap;
+  final InstrumentModel? instrument;
+  final List<InstrumentModel> instrumentList;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -15,30 +23,28 @@ class SelectInstrumentWidget extends ConsumerStatefulWidget {
 class _SelectInstrumentWidgetState
     extends ConsumerState<SelectInstrumentWidget> {
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() => ref.read(listInstrumentsProvider.notifier).load());
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final state = ref.watch(listInstrumentsProvider);
-
-    return Column(
-      children: [
-        if (state is SuccessListInstrumentsState)
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const IconWidget(image: 'assets/icons/guitar.png'),
+          const SizedBox(width: 4),
           DropdownButtonWidget(
-            hintText: 'Violão',
-            items: state.data.map(
+            hintText: widget.instrument?.title ?? 'Violãooo',
+            items: widget.instrumentList.map(
               (item) {
-                return DropdownMenuItem<String>(
-                  value: item.title,
+                return DropdownMenuItem<InstrumentModel>(
+                  value: item,
                   child: Text(item.title),
                 );
               },
             ).toList(),
+            onTap: widget.onTap,
           ),
-      ],
+        ],
+      ),
     );
   }
 }

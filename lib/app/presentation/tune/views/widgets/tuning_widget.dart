@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:m_s_afinador/app/data/models/tuning_types_model.dart';
 
-class StringCipherWidget extends StatefulWidget {
-  const StringCipherWidget({super.key});
+class TuningWidget extends ConsumerStatefulWidget {
+  const TuningWidget({
+    super.key,
+    required this.tuningType,
+  });
+  final TuningTypesModel tuningType;
 
   @override
-  State<StringCipherWidget> createState() => _StringCipherWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TuningWidgetState();
 }
 
-class _StringCipherWidgetState extends State<StringCipherWidget> {
+class _TuningWidgetState extends ConsumerState<TuningWidget> {
   final PageController _pageController = PageController(
     viewportFraction: 0.10,
     initialPage: 2,
@@ -18,17 +24,17 @@ class _StringCipherWidgetState extends State<StringCipherWidget> {
   void initState() {
     super.initState();
 
-    _pageController.addListener(() {
-      int newIndex = _pageController.page?.round() ?? 0;
-      if (newIndex != _selectedIndex) {
-        setState(() {
-          _selectedIndex = newIndex;
-        });
-      }
-    });
+    _pageController.addListener(
+      () {
+        int newIndex = _pageController.page?.round() ?? 0;
+        if (newIndex != _selectedIndex) {
+          setState(() {
+            _selectedIndex = newIndex;
+          });
+        }
+      },
+    );
   }
-
-  final _stringCipher = ['E', 'A', 'D', 'G', 'B', 'E'];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,7 @@ class _StringCipherWidgetState extends State<StringCipherWidget> {
                   );
                 },
                 child: Text(
-                  _stringCipher[index],
+                  widget.tuningType.tuning.notes[index].title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     height: _selectedIndex == index ? 0.9 : null,
@@ -65,21 +71,9 @@ class _StringCipherWidgetState extends State<StringCipherWidget> {
                 ),
               );
             },
-            itemCount: _stringCipher.length,
+            itemCount: widget.tuningType.tuning.notes.length,
           ),
         ),
-      ),
-    );
-  }
-
-  Text _buildTextStringCipher(int selectedIndex, int index) {
-    return Text(
-      _stringCipher[index],
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        height: _selectedIndex == index ? 0.9 : null,
-        color: _selectedIndex == index ? const Color(0xFF6CE8DC) : Colors.white,
-        fontSize: _selectedIndex == index ? 56 : 32,
       ),
     );
   }

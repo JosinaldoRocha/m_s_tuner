@@ -1,9 +1,15 @@
+import 'note_model.dart';
+
 class TuningModel {
   String id;
-  String title;
+  String instrumentId;
+  String tuningTypeId;
+  List<NoteModel> notes;
 
   TuningModel({
     required this.id,
-    required this.title,
+    required this.instrumentId,
+    required this.tuningTypeId,
+    required this.notes,
   });
 }
