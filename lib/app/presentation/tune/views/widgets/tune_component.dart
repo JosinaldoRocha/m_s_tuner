@@ -46,7 +46,7 @@ class _TuneComponentState extends ConsumerState<TuneComponent> with TuneMixin {
               ),
             ),
             Text(
-              frequency != null ? frequency!.toStringAsFixed(2) : '0',
+              '${frequency != null ? frequency!.toStringAsFixed(2) : ''} Hz',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color(0xFFC2C2C2),

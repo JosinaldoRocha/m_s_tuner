@@ -10,6 +10,7 @@ import '../widgets/tune_component.dart';
 mixin TuneMixin on ConsumerState<TuneComponent> {
   double? frequency;
   FlutterFft flutterFft = FlutterFft();
+  String? note;
 
   void initialize() async {
     await flutterFft.startRecorder();
