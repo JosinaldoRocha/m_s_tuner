@@ -36,23 +36,34 @@ class _TuneComponentState extends ConsumerState<TuneComponent> with TuneMixin {
               onTap: onTap,
             ),
             TuningTypesWidget(instrument: initialInstrument),
-            const Text(
-              'In tune!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF6CE8DC),
-                fontSize: 20,
-                height: 0,
-              ),
-            ),
+            frequency != null && frequency != 0
+                ? const Text(
+                    'In tune!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF6CE8DC),
+                      fontSize: 20,
+                      height: 0,
+                    ),
+                  )
+                : const SizedBox(height: 25),
             Text(
-              '${frequency != null ? frequency!.toStringAsFixed(2) : ''} Hz',
+              frequency != null && frequency != 0
+                  ? '${frequency!.toStringAsFixed(2)} Hz'
+                  : 'Toque uma corda',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color(0xFFC2C2C2),
               ),
             ),
             const SizedBox(height: 19),
+            if (frequency != null)
+              Text(
+                filteredNote(),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
           ],
         ),
       );

@@ -101,4 +101,21 @@ mixin TuneMixin on ConsumerState<TuneComponent> {
       ),
     );
   }
+
+  String filteredNote() {
+    if (frequency! > 247) {
+      note = 'E3';
+    } else if (frequency! < 247 && frequency! > 220.5) {
+      note = 'B';
+    } else if (frequency! < 220.5 && frequency! > 170.5) {
+      note = 'G';
+    } else if (frequency! < 170.5 && frequency! > 128) {
+      note = 'D';
+    } else if (frequency! < 128 && frequency! > 96.2) {
+      note = 'A';
+    } else {
+      note = 'E1';
+    }
+    return note!;
+  }
 }
