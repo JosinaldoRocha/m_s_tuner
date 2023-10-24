@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fft/flutter_fft.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../../../../constants/instrument_model.dart';
 import '../../providers/tune_provider.dart';
 import '../../states/microphone_permission/microphone_permission_state.dart';
@@ -59,46 +58,17 @@ mixin TuneMixin on ConsumerState<TuneComponent> {
           initialize();
         }
         if (next is FailureMicrophonePermissionState) {
-          showDialog(
-            context: context,
-            builder: (context) => _buildAlertDialog(next, context),
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: const Color(0xFFC2C2C2),
+              content: Text(
+                next.errorMessage,
+                style: const TextStyle(color: Color.fromARGB(255, 5, 5, 5)),
+              ),
+            ),
           );
         }
       },
-    );
-  }
-
-  AlertDialog _buildAlertDialog(
-      FailureMicrophonePermissionState next, BuildContext context) {
-    return AlertDialog(
-      contentPadding: const EdgeInsets.all(15),
-      content: SizedBox(
-        height: 180,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              next.errorMessage,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              onPressed: () async {
-                Navigator.pop(context);
-                await openAppSettings();
-              },
-              child: const Text('Ir para as configurações'),
-            ),
-          ],
-        ),
-      ),
     );
   }
 

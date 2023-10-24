@@ -14,22 +14,20 @@ class MicrophonePermissionStateNotifier
 
     try {
       final result = await repository.microphonePermission();
-      state = SuccessMicrophonePermissionState(data: result);
       if (result == PermissionStatus.granted) {
-      } else if (result == PermissionStatus.denied ||
-          result == PermissionStatus.permanentlyDenied) {
+        state = SuccessMicrophonePermissionState(data: result);
+      } else if (result == PermissionStatus.denied) {
         state = FailureMicrophonePermissionState(
-          errorMessage:
-              'Suas permissões foram negadas, por favor tente novamente ou vá até as '
-              'configurações do seu aplicativo e ative a permissão para prosseguir.',
-        );
-      } else {
+            errorMessage: 'Permissão negada. Tente novamente');
+      } else if (result == PermissionStatus.permanentlyDenied) {
         state = FailureMicrophonePermissionState(
-          errorMessage: 'Localização negada.',
-        );
+            errorMessage:
+                'Permissão negada. Para o afinador funcionar habilite '
+                'o microfone nas configurações do dispositivo');
       }
     } catch (e) {
-      state = FailureMicrophonePermissionState(errorMessage: 'errorMessage');
+      state = FailureMicrophonePermissionState(
+          errorMessage: 'Ocorreu um erro na solicitação');
     }
   }
 }

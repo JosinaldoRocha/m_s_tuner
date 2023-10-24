@@ -11,7 +11,7 @@ class MicrophoneRepository {
       }
     }
 
-    if (permission == PermissionStatus.permanentlyDenied) {
+    if (permission.isPermanentlyDenied) {
       permission = PermissionStatus.permanentlyDenied;
     }
 
