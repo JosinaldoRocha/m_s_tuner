@@ -14,27 +14,38 @@ class TuningTypesWidget extends StatefulWidget {
 }
 
 class _TuningTypesWidgetState extends State<TuningTypesWidget> {
-  final _pageController = PageController(
-    viewportFraction: 0.24,
-    initialPage: 0,
-  );
+  PageController? _pageController;
+  int? _selectedIndex;
 
-  int _selectedIndex = 0;
+  void updtateSelectedIndex() {
+    setState(() {
+      _selectedIndex = widget.instrument.tuningTypes
+          .indexWhere((element) => element.id == 'tuningStandard');
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    updtateSelectedIndex();
 
-    _pageController.addListener(
-      () {
-        int newIndex = _pageController.page?.round() ?? 0;
-        if (newIndex != _selectedIndex) {
-          setState(() {
-            _selectedIndex = newIndex;
-          });
-        }
-      },
+    _pageController = PageController(
+      viewportFraction: 0.24,
+      initialPage: _selectedIndex!,
     );
+  }
+
+  @override
+  void didUpdateWidget(TuningTypesWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.instrument != oldWidget.instrument) {
+      updtateSelectedIndex();
+      _pageController!.animateToPage(
+        _selectedIndex!,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.decelerate,
+      );
+    }
   }
 
   @override
@@ -48,10 +59,15 @@ class _TuningTypesWidgetState extends State<TuningTypesWidget> {
           child: PageView.builder(
             controller: _pageController,
             scrollDirection: Axis.horizontal,
+            onPageChanged: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  _pageController.animateToPage(
+                  _pageController!.animateToPage(
                     index,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.decelerate,
@@ -85,7 +101,7 @@ class _TuningTypesWidgetState extends State<TuningTypesWidget> {
             itemCount: listTuningTypes.length,
           ),
         ),
-        TuningWidget(tuningType: listTuningTypes[_selectedIndex]),
+        TuningWidget(tuningType: listTuningTypes[_selectedIndex!]),
       ],
     );
   }
