@@ -7,18 +7,18 @@ class DropdownButtonWidget<T> extends StatefulWidget {
     required this.items,
     required this.hintText,
     required this.onTap,
+    required this.value,
   });
   final List<DropdownMenuItem<T>> items;
   final String hintText;
   final Function(T)? onTap;
+  final dynamic value;
 
   @override
   State<DropdownButtonWidget> createState() => _DropdownButtonWidgetState();
 }
 
 class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
-  String? selectedValue;
-
   @override
   Widget build(BuildContext context) {
     return DropdownButton2(
@@ -39,7 +39,7 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
       underline: Container(),
       iconStyleData: _buildIconStyleData(),
       items: widget.items,
-      value: selectedValue,
+      value: widget.value,
       onChanged: widget.onTap,
     );
   }

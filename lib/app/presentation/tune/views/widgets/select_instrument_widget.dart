@@ -12,7 +12,7 @@ class SelectInstrumentWidget extends ConsumerStatefulWidget {
     required this.instrumentList,
   });
   final Function(InstrumentModel)? onTap;
-  final InstrumentModel? instrument;
+  final InstrumentModel instrument;
   final List<InstrumentModel> instrumentList;
 
   @override
@@ -32,7 +32,8 @@ class _SelectInstrumentWidgetState
           const IconWidget(image: 'assets/icons/guitar.png'),
           const SizedBox(width: 4),
           DropdownButtonWidget(
-            hintText: widget.instrument?.title ?? 'Violãooo',
+            value: widget.instrument,
+            hintText: widget.instrument.title,
             items: widget.instrumentList.map(
               (item) {
                 return DropdownMenuItem<InstrumentModel>(

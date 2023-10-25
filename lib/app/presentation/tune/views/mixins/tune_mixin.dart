@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fft/flutter_fft.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../constants/instrument_model.dart';
+import 'package:m_s_afinador/app/data/models/instrument_model.dart';
 import '../../providers/tune_provider.dart';
 import '../../states/microphone_permission/microphone_permission_state.dart';
 import '../widgets/tune_component.dart';
@@ -10,6 +10,7 @@ mixin TuneMixin on ConsumerState<TuneComponent> {
   double? frequency;
   FlutterFft flutterFft = FlutterFft();
   String? note;
+  InstrumentModel? instrument;
 
   void initialize() async {
     await flutterFft.startRecorder();
@@ -46,7 +47,7 @@ mixin TuneMixin on ConsumerState<TuneComponent> {
 
   void onTap(value) {
     setState(() {
-      initialInstrument = value;
+      instrument = value;
     });
   }
 

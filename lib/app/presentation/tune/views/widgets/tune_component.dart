@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:m_s_afinador/app/presentation/tune/views/mixins/tune_mixin.dart';
-import '../../../../constants/instrument_model.dart';
 import '../../../../presentation/tune/providers/tune_provider.dart';
 import '../../../../presentation/tune/views/widgets/select_instrument_widget.dart';
 import '../../states/list_instruments/list_instruments_state.dart';
@@ -25,6 +24,9 @@ class _TuneComponentState extends ConsumerState<TuneComponent> with TuneMixin {
         child: CircularProgressIndicator(),
       );
     } else if (state is SuccessListInstrumentsState) {
+      final initialInstrument =
+          state.data.firstWhere((item) => item.id == 'violao');
+
       return Container(
         width: double.infinity,
         padding: const EdgeInsets.only(top: 53),
@@ -32,10 +34,10 @@ class _TuneComponentState extends ConsumerState<TuneComponent> with TuneMixin {
           children: [
             SelectInstrumentWidget(
               instrumentList: state.data,
-              instrument: initialInstrument,
+              instrument: instrument ?? initialInstrument,
               onTap: onTap,
             ),
-            TuningTypesWidget(instrument: initialInstrument),
+            TuningTypesWidget(instrument: instrument ?? initialInstrument),
             frequency != null && frequency != 0
                 ? const Text(
                     'In tune!',
