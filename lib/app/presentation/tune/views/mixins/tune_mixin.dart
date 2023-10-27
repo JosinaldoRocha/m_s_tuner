@@ -33,7 +33,7 @@ mixin TuneMixin on ConsumerState<TuneComponent> {
     Future.microtask(() {
       ref.read(listInstrumentsProvider.notifier).loadInstruments();
       ref.read(microphoneProvider.notifier).loadPermission();
-      frequency = flutterFft.getFrequency;
+      // frequency = flutterFft.getFrequency;
     });
   }
 

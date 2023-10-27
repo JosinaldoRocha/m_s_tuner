@@ -37,7 +37,10 @@ class _TuneComponentState extends ConsumerState<TuneComponent> with TuneMixin {
               instrument: instrument ?? initialInstrument,
               onTap: onTap,
             ),
-            TuningTypesWidget(instrument: instrument ?? initialInstrument),
+            TuningTypesWidget(
+              instrument: instrument ?? initialInstrument,
+              frequency: frequency,
+            ),
             frequency != null && frequency != 0
                 ? const Text(
                     'In tune!',

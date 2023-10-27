@@ -1,9 +1,9 @@
-import 'package:m_s_afinador/app/data/models/tuning_model.dart';
+import 'note_model.dart';
 
 class TuningTypesModel {
   String id;
   String title;
-  TuningModel tuning;
+  List<NoteModel> tuning;
 
   TuningTypesModel({
     required this.id,
