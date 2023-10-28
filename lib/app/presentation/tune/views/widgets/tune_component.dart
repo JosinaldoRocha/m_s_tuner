@@ -52,20 +52,7 @@ class _TuneComponentState extends ConsumerState<TuneComponent> {
               instrument: instrument ?? initialInstrument,
               onTap: onTap,
             ),
-            TuningTypesWidget(
-              instrument: instrument ?? initialInstrument,
-            ),
-            const Text(
-              'In tune!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF6CE8DC),
-                fontSize: 20,
-                height: 0,
-              ),
-            ),
-            const SizedBox(height: 25),
-            const SizedBox(height: 19),
+            TuningTypesWidget(instrument: instrument ?? initialInstrument),
           ],
         ),
       );

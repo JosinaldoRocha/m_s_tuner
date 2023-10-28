@@ -47,41 +47,52 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
         top: 72,
         bottom: 12,
       ),
-      child: SizedBox(
-        height: 44,
-        child: Center(
-          child: PageView.builder(
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Text(
-                widget.tuningType.tuning[index].title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  height: selectedIndex == index ? 0.9 : null,
-                  color: selectedIndex == index
-                      ? const Color(0xFF6CE8DC)
-                      : const Color(0xFFC2C2C2),
-                  fontSize: selectedIndex == index ? 56 : 32,
-                ),
-              );
-            },
-            itemCount: widget.tuningType.tuning.length,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 44,
+            child: PageView.builder(
+              controller: pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Text(
+                  widget.tuningType.tuning[index].title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    height: selectedIndex == index ? 0.9 : null,
+                    color: selectedIndex == index
+                        ? const Color(0xFF6CE8DC)
+                        : const Color(0xFFC2C2C2),
+                    fontSize: selectedIndex == index ? 56 : 32,
+                  ),
+                );
+              },
+              itemCount: widget.tuningType.tuning.length,
+            ),
           ),
-        ),
+          const SizedBox(height: 12),
+          frequency != null && frequency != 0
+              ? const Text(
+                  'In tune!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF6CE8DC),
+                    fontSize: 20,
+                    height: 0,
+                  ),
+                )
+              : const SizedBox(height: 25),
+          const SizedBox(height: 6),
+          Text(
+            frequency != null && frequency != 0
+                ? '${frequency!.toStringAsFixed(2)} Hz'
+                : 'Toque uma corda',
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Color(0xFFC2C2C2), height: 0),
+          ),
+        ],
       ),
     );
   }
 }
-
-
-            // Text(
-            //   frequency != null && frequency != 0
-            //       ? '${frequency!.toStringAsFixed(2)} Hz'
-            //       : 'Toque uma corda',
-            //   textAlign: TextAlign.center,
-            //   style: const TextStyle(
-            //     color: Color(0xFFC2C2C2),
-            //   ),
-            // ),
