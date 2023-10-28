@@ -6,10 +6,8 @@ class TuningTypesWidget extends StatefulWidget {
   const TuningTypesWidget({
     super.key,
     required this.instrument,
-    required this.frequency,
   });
   final InstrumentModel instrument;
-  final double? frequency;
 
   @override
   State<TuningTypesWidget> createState() => _TuningTypesWidgetState();
@@ -103,10 +101,7 @@ class _TuningTypesWidgetState extends State<TuningTypesWidget> {
             itemCount: listTuningTypes.length,
           ),
         ),
-        TuningWidget(
-          tuningType: listTuningTypes[_selectedIndex!],
-          frequency: widget.frequency,
-        ),
+        TuningWidget(tuningType: listTuningTypes[_selectedIndex!]),
       ],
     );
   }

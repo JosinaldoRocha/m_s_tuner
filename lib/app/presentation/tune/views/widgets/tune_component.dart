@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:m_s_afinador/app/presentation/tune/views/mixins/tune_mixin.dart';
+import '../../../../data/models/instrument_model.dart';
 import '../../../../presentation/tune/providers/tune_provider.dart';
 import '../../../../presentation/tune/views/widgets/select_instrument_widget.dart';
 import '../../states/list_instruments/list_instruments_state.dart';
@@ -13,11 +13,26 @@ class TuneComponent extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _TuneComponentState();
 }
 
-class _TuneComponentState extends ConsumerState<TuneComponent> with TuneMixin {
+class _TuneComponentState extends ConsumerState<TuneComponent> {
+  InstrumentModel? instrument;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      ref.read(listInstrumentsProvider.notifier).loadInstruments();
+    });
+  }
+
+  void onTap(value) {
+    setState(() {
+      instrument = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(listInstrumentsProvider);
-    microphoneListen();
 
     if (state is LoadingListInstrumentsState) {
       return const Center(
@@ -39,36 +54,18 @@ class _TuneComponentState extends ConsumerState<TuneComponent> with TuneMixin {
             ),
             TuningTypesWidget(
               instrument: instrument ?? initialInstrument,
-              frequency: frequency,
             ),
-            frequency != null && frequency != 0
-                ? const Text(
-                    'In tune!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF6CE8DC),
-                      fontSize: 20,
-                      height: 0,
-                    ),
-                  )
-                : const SizedBox(height: 25),
-            Text(
-              frequency != null && frequency != 0
-                  ? '${frequency!.toStringAsFixed(2)} Hz'
-                  : 'Toque uma corda',
+            const Text(
+              'In tune!',
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color(0xFFC2C2C2),
+              style: TextStyle(
+                color: Color(0xFF6CE8DC),
+                fontSize: 20,
+                height: 0,
               ),
             ),
+            const SizedBox(height: 25),
             const SizedBox(height: 19),
-            if (frequency != null)
-              Text(
-                filteredNote(),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
           ],
         ),
       );
