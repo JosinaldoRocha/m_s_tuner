@@ -142,7 +142,7 @@ class TuningRepository {
               NoteModel(id: 'E1', title: 'E', octave: 1),
               NoteModel(id: 'A1', title: 'A', octave: 1),
               NoteModel(id: 'D2', title: 'D', octave: 2),
-              NoteModel(id: 'D2', title: 'G', octave: 2),
+              NoteModel(id: 'G2', title: 'G', octave: 2),
             ],
           ),
           TuningTypesModel(
@@ -152,7 +152,7 @@ class TuningRepository {
               NoteModel(id: 'D1', title: 'D', octave: 1),
               NoteModel(id: 'A1', title: 'A', octave: 1),
               NoteModel(id: 'D2', title: 'D', octave: 2),
-              NoteModel(id: 'D2', title: 'G', octave: 2),
+              NoteModel(id: 'G2', title: 'G', octave: 2),
             ],
           ),
         ],
