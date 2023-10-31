@@ -38,9 +38,10 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
 
   @override
   Widget build(BuildContext context) {
+    final tuningList = widget.tuningType.tuning;
+    final tuningType = widget.tuningType;
     microphoneListen();
-    filteredNote();
-    updateSelectedIndexAndPage();
+    updateSelectedIndex();
 
     return Padding(
       padding: const EdgeInsets.only(
@@ -57,27 +58,28 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Text(
-                  widget.tuningType.tuning[index].title,
+                  tuningList[index].title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     height: selectedIndex == index ? 0.9 : null,
                     color: selectedIndex == index
-                        ? const Color(0xFF6CE8DC)
+                        ? tuningList[selectedIndex!].color
                         : const Color(0xFFC2C2C2),
                     fontSize: selectedIndex == index ? 56 : 32,
                   ),
                 );
               },
-              itemCount: widget.tuningType.tuning.length,
+              itemCount: tuningList.length,
             ),
           ),
           const SizedBox(height: 12),
-          frequency != null && frequency != 0
-              ? const Text(
-                  'In tune!',
+          selectedIndex != null
+              ? Text(
+                  '${tuningList[selectedIndex!].noteTuning(frequency)} '
+                  '(${tuningType.getNote(frequency!)})',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF6CE8DC),
+                    color: tuningList[selectedIndex!].color,
                     fontSize: 20,
                     height: 0,
                   ),
