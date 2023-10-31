@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:m_s_afinador/app/data/models/tuning_types_model.dart';
 import 'package:m_s_afinador/app/presentation/tune/views/mixins/tuning_mixin.dart';
+import 'package:m_s_afinador/app/presentation/tune/views/widgets/tuning_item_widget.dart';
 import '../../providers/tune_provider.dart';
 
 class TuningWidget extends ConsumerStatefulWidget {
@@ -38,8 +39,7 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
 
   @override
   Widget build(BuildContext context) {
-    final tuningList = widget.tuningType.tuning;
-    final tuningType = widget.tuningType;
+    final noteList = widget.tuningType.tuning;
     microphoneListen();
     updateSelectedIndex();
 
@@ -54,47 +54,50 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
             height: 44,
             child: PageView.builder(
               controller: pageController,
-              physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return Text(
-                  tuningList[index].title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height: selectedIndex == index ? 0.9 : null,
-                    color: selectedIndex == index
-                        ? tuningList[selectedIndex!].color
-                        : const Color(0xFFC2C2C2),
-                    fontSize: selectedIndex == index ? 56 : 32,
-                  ),
+                return TuningItemWidget(
+                  note: noteList[index],
+                  selectedIndex: selectedIndex,
+                  index: index,
                 );
               },
-              itemCount: tuningList.length,
+              itemCount: noteList.length,
             ),
           ),
-          const SizedBox(height: 12),
-          selectedIndex != null
-              ? Text(
-                  '${tuningList[selectedIndex!].noteTuning(frequency)} '
-                  '(${tuningType.getNote(frequency!)})',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: tuningList[selectedIndex!].color,
-                    fontSize: 20,
-                    height: 0,
-                  ),
-                )
-              : const SizedBox(height: 25),
-          const SizedBox(height: 6),
-          Text(
-            frequency != null && frequency != 0
-                ? '${frequency!.toStringAsFixed(2)} Hz'
-                : 'Toque uma corda',
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Color(0xFFC2C2C2), height: 0),
-          ),
+          _buildFrequencyStatus(),
         ],
       ),
+    );
+  }
+
+  Column _buildFrequencyStatus() {
+    final noteList = widget.tuningType.tuning;
+    final tuningType = widget.tuningType;
+    return Column(
+      children: [
+        const SizedBox(height: 12),
+        selectedIndex != null
+            ? Text(
+                '${noteList[selectedIndex!].noteTuning(frequency)} '
+                '(${tuningType.getNote(frequency!)})',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: noteList[selectedIndex!].color,
+                  fontSize: 20,
+                  height: 0,
+                ),
+              )
+            : const SizedBox(height: 25),
+        const SizedBox(height: 6),
+        Text(
+          frequency != null && frequency != 0
+              ? '${frequency!.toStringAsFixed(2)} Hz'
+              : 'Toque uma corda',
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Color(0xFFC2C2C2), height: 0),
+        )
+      ],
     );
   }
 }
