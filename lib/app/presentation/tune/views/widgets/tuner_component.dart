@@ -6,14 +6,14 @@ import '../../../../presentation/tune/views/widgets/select_instrument_widget.dar
 import '../../states/list_instruments/list_instruments_state.dart';
 import 'tuning/tuning_types_widget.dart';
 
-class TuneComponent extends ConsumerStatefulWidget {
-  const TuneComponent({super.key});
+class TunerComponent extends ConsumerStatefulWidget {
+  const TunerComponent({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _TuneComponentState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TunerComponentState();
 }
 
-class _TuneComponentState extends ConsumerState<TuneComponent> {
+class _TunerComponentState extends ConsumerState<TunerComponent> {
   InstrumentModel? instrument;
 
   @override
