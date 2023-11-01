@@ -4,7 +4,7 @@ import '../../../../data/models/instrument_model.dart';
 import '../../../../presentation/tune/providers/tune_provider.dart';
 import '../../../../presentation/tune/views/widgets/select_instrument_widget.dart';
 import '../../states/list_instruments/list_instruments_state.dart';
-import 'tuning_types_widget.dart';
+import 'tuning/tuning_types_widget.dart';
 
 class TuneComponent extends ConsumerStatefulWidget {
   const TuneComponent({super.key});

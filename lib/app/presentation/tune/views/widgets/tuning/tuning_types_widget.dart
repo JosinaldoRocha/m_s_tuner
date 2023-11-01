@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m_s_afinador/app/data/models/instrument_model.dart';
-import 'tuning_widget.dart';
+import '../tuning_widget.dart';
 
 class TuningTypesWidget extends StatefulWidget {
   const TuningTypesWidget({
