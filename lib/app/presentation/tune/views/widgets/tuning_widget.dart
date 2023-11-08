@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:m_s_afinador/app/data/models/tuning_types_model.dart';
 import 'package:m_s_afinador/app/presentation/tune/views/mixins/tuning_mixin.dart';
+import 'package:m_s_afinador/app/presentation/tune/views/widgets/tuning/tuning_chart_widget.dart';
 import '../../providers/tune_provider.dart';
 import 'tuning/tuning_item_widget.dart';
 
@@ -66,6 +67,7 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
             ),
           ),
           _buildFrequencyStatus(),
+          const TuningChartWidget(),
         ],
       ),
     );
@@ -95,8 +97,12 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
               ? '${frequency!.toStringAsFixed(2)} Hz'
               : 'Toque uma corda',
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Color(0xFFC2C2C2), height: 0),
-        )
+          style: const TextStyle(
+            color: Color(0xFFC2C2C2),
+            height: 0,
+          ),
+        ),
+        const SizedBox(height: 19),
       ],
     );
   }
