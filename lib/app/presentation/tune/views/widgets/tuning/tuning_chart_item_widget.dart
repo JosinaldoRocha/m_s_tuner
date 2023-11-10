@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
-//import 'package:m_s_afinador/app/data/models/note_model.dart';
+import 'package:m_s_afinador/app/data/models/note_model.dart';
 
 class TuningChartItemWidget extends StatelessWidget {
   const TuningChartItemWidget({
     super.key,
-    this.height,
-    // required this.note,
+    required this.selectedIndex,
+    required this.index,
+    required this.note,
+    required this.containerList,
   });
-  final double? height;
-  //final NoteModel note;
+
+  final int? selectedIndex;
+  final int index;
+  final NoteModel note;
+  final List<Container> containerList;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(width: 8),
-        Container(
-          height: height ?? 56,
+    return Center(
+      child: Container(
           width: 4,
           decoration: BoxDecoration(
-            color: const Color(0xFFC2C2C2),
             borderRadius: BorderRadius.circular(22),
+            color:
+                selectedIndex == index ? note.color : const Color(0xFFC2C2C2),
           ),
-        ),
-        //const SizedBox(width: 8),
-      ],
+          child: containerList[index]),
     );
   }
 }
