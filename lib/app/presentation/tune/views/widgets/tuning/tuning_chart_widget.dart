@@ -54,7 +54,7 @@ class _TuningChartWidgetState extends State<TuningChartWidget> {
     }
   }
 
-  final containerList = [
+  final barsList = [
     Container(),
     Container(),
     Container(),
@@ -90,10 +90,10 @@ class _TuningChartWidgetState extends State<TuningChartWidget> {
             selectedIndex: selectedIndex,
             index: index,
             note: widget.note,
-            containerList: containerList,
+            barsList: barsList,
           );
         },
-        itemCount: containerList.length,
+        itemCount: barsList.length,
       ),
     );
   }

@@ -7,13 +7,13 @@ class TuningChartItemWidget extends StatelessWidget {
     required this.selectedIndex,
     required this.index,
     required this.note,
-    required this.containerList,
+    required this.barsList,
   });
 
   final int? selectedIndex;
   final int index;
   final NoteModel note;
-  final List<Container> containerList;
+  final List<Container> barsList;
 
   double get getHeight {
     if (selectedIndex == index) {
@@ -38,7 +38,7 @@ class TuningChartItemWidget extends StatelessWidget {
             color:
                 selectedIndex == index ? note.color : const Color(0xFFC2C2C2),
           ),
-          child: containerList[index]),
+          child: barsList[index]),
     );
   }
 }
