@@ -11,12 +11,6 @@ class TuningTypesModel {
     required this.tuning,
   });
 
-  String getNoteTeste(String noteId) {
-    final item = tuning.firstWhere((element) => element.id == noteId);
-
-    return item.title;
-  }
-
   String getNote(double frequency) {
     if (frequency < 31.78) {
       return 'B';

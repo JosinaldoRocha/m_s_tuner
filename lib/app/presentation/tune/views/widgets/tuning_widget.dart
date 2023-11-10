@@ -67,7 +67,12 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
             ),
           ),
           _buildFrequencyStatus(),
-          const TuningChartWidget(),
+          if (selectedIndex != null)
+            TuningChartWidget(
+              tuningType: widget.tuningType,
+              note: noteList[selectedIndex!],
+              frequency: frequency,
+            ),
         ],
       ),
     );
