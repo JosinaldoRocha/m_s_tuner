@@ -98,7 +98,7 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
             : const SizedBox(height: 25),
         const SizedBox(height: 6),
         Text(
-          frequency != null && frequency != 0
+          frequency != null
               ? '${frequency!.toStringAsFixed(2)} Hz'
               : 'Toque uma corda',
           textAlign: TextAlign.center,

@@ -15,11 +15,24 @@ class TuningChartItemWidget extends StatelessWidget {
   final NoteModel note;
   final List<Container> containerList;
 
+  double get getHeight {
+    if (selectedIndex == index) {
+      return 114;
+    } else if (index == 9) {
+      return 180;
+    } else if (index == 1 || index == 5 || index == 13 || index == 17) {
+      return 86;
+    } else {
+      return 56;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
           width: 4,
+          height: getHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(22),
             color:
