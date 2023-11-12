@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:m_s_afinador/app/data/models/tuning_types_model.dart';
+import 'package:m_s_afinador/app/data/utils/note_utils.dart';
 import 'package:m_s_afinador/app/presentation/tune/views/mixins/tuning_mixin.dart';
 import 'package:m_s_afinador/app/presentation/tune/views/widgets/tuning/tuning_chart_widget.dart';
 import '../../providers/tune_provider.dart';
@@ -80,14 +81,14 @@ class _TuningWidgetState extends ConsumerState<TuningWidget> with TuningMixin {
 
   Column _buildFrequencyStatus() {
     final noteList = widget.tuningType.tuning;
-    final tuningType = widget.tuningType;
+    final note = NoteUtils.getNote(frequency);
     return Column(
       children: [
         const SizedBox(height: 12),
         selectedIndex != null
             ? Text(
                 '${noteList[selectedIndex!].noteTuning(frequency)} '
-                '(${tuningType.getNote(frequency!)})',
+                '(${note.title})',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: noteList[selectedIndex!].color,
